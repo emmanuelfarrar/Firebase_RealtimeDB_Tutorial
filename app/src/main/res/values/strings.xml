@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Firebse_RealtimeDB_Tutorial</string>
+
+    <array name="genres">
+        <item>Rock</item>
+        <item>Pop</item>
+        <item>Rap</item>
+        <item>Folk</item>
+        <item>Classical</item>
+    </array>
+</resources>

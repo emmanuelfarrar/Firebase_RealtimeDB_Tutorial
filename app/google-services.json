@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "437640626146",
+    "firebase_url": "https://fir-realtimedb-tutorial.firebaseio.com",
+    "project_id": "fir-realtimedb-tutorial",
+    "storage_bucket": "fir-realtimedb-tutorial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437640626146:android:7ef72c7623b2ff93f5c3bb",
+        "android_client_info": {
+          "package_name": "com.efarrar.firebse_realtimedb_tutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437640626146-vo9pt596c4j9luot2t60rpohpostan9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.efarrar.firebse_realtimedb_tutorial",
+            "certificate_hash": "9d0953c22319513f2955082c008b5e22be7bae9e"
+          }
+        },
+        {
+          "client_id": "437640626146-88ls5n31ahtmsmi79m2tnankd8f6sq9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQe920rTzi5_WGf0JkVazWf-AdaEhqY9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437640626146-88ls5n31ahtmsmi79m2tnankd8f6sq9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
