@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdate);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDelete);
         final Spinner spinnerUpdate = (Spinner) dialogView.findViewById(R.id.spinnerGenres);
 
         dialogBuilder.setTitle("Updating Artist "+ artistName);         //sets the title of the dialog, like a label
@@ -183,6 +184,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteArtist(artistId);
+                alertDialog.dismiss();;
+            }
+        });
+
+    }
+
+    /** function to delete from DB */
+    private void deleteArtist(String artistId) {
+        DatabaseReference drArtist = FirebaseDatabase.getInstance().getReference("artist").child(artistId);
+        DatabaseReference drTracks = FirebaseDatabase.getInstance().getReference("tracks").child(artistId);
+
+        drArtist.removeValue();
+        drTracks.removeValue();
     }
 
     /**

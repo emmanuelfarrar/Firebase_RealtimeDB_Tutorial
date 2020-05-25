@@ -116,7 +116,6 @@ public class AddTrackActivity extends AppCompatActivity {
             Track track = new Track(id, trackName, rating);
 
             databaseReference.child(id).setValue(track);
-            trackName = "";
 
             Toast.makeText(this, "Track saved successfully", Toast.LENGTH_SHORT).show();
         }else {
