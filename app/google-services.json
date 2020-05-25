@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:437640626146:android:7ef72c7623b2ff93f5c3bb",
+        "mobilesdk_app_id": "1:437640626146:android:80d4acc479c43608f5c3bb",
         "android_client_info": {
-          "package_name": "com.efarrar.firebse_realtimedb_tutorial"
+          "package_name": "com.efarrar.firebase_realtimedb_tutorial"
         }
       },
       "oauth_client": [
         {
-          "client_id": "437640626146-vo9pt596c4j9luot2t60rpohpostan9s.apps.googleusercontent.com",
+          "client_id": "437640626146-0gj9j4tcsrsis23n47reckhg4n1lhnm9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.efarrar.firebse_realtimedb_tutorial",
-            "certificate_hash": "9d0953c22319513f2955082c008b5e22be7bae9e"
+            "package_name": "com.efarrar.firebase_realtimedb_tutorial",
+            "certificate_hash": "0be0bec18a85fdb9669c4dfcbee5055594279d73"
           }
         },
         {
