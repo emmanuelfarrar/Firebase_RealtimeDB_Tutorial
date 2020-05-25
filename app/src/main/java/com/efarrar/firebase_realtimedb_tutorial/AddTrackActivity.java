@@ -9,6 +9,7 @@ package com.efarrar.firebase_realtimedb_tutorial;
  * Additional files added are: AddTrackActivity.class, Track.class, and activity_add_track.xml
  */
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,8 +23,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddTrackActivity extends AppCompatActivity {
 
@@ -36,6 +43,8 @@ public class AddTrackActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
+    List<Track> tracks;         //used for the trackList
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +56,8 @@ public class AddTrackActivity extends AppCompatActivity {
 
         buttonAddTrack = (Button) findViewById(R.id.buttonAddTrack);
         listViewTracks = (ListView) findViewById(R.id.listViewTracks);
+
+        tracks = new ArrayList<>();         //instantiating tracks array for trackList
 
         //intent to get the info from the intent in MainActivity  > AddTrackActivity
         Intent intent = getIntent();
@@ -66,6 +77,33 @@ public class AddTrackActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //detecting value changes
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //get all the tracks for the artist
+                tracks.clear();
+
+                for(DataSnapshot trackSnapshot : dataSnapshot.getChildren()){
+                    Track track = trackSnapshot.getValue(Track.class);          //getting tracks
+                    tracks.add(track);      //adding tracks to list
+                }
+
+                TrackList trackListAdapter = new TrackList(AddTrackActivity.this, tracks);      //creating new adapter
+                listViewTracks.setAdapter(trackListAdapter);        //adding array to adapter
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void saveTrack() {

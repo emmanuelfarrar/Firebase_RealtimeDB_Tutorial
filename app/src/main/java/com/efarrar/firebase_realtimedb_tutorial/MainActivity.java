@@ -7,17 +7,20 @@ package com.efarrar.firebase_realtimedb_tutorial;
  */
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -89,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * setOnItemLongClickListener listener to call AlertDialog for updating
+         */
+        listViewArtist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Artist artist = artistList.get(position);
+
+                showUpdateDialog(artist.getArtistId(),artist.getArtistName());
+                return false;
+            }
+
+        });
+
     } //[END: onCreate()]
 
     /**Attaching value listener to databaseReference obj */
@@ -118,6 +135,76 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**showUpdateDialog()
+     * Function is to build the alert dialog and set up the variables in it
+     *
+     *
+     * @param artistId
+     * @param artistName
+     */
+    private void showUpdateDialog(final String artistId, String artistName){
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+
+        dialogBuilder.setView(dialogView);
+
+
+        final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdate);
+        final Spinner spinnerUpdate = (Spinner) dialogView.findViewById(R.id.spinnerGenres);
+
+        dialogBuilder.setTitle("Updating Artist "+ artistName);         //sets the title of the dialog, like a label
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        /**
+         * take values newly updated and call updateArtist to pass them
+         */
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editTextName.getText().toString().trim();
+                String genre = spinnerGenres.getSelectedItem().toString();
+
+                if(TextUtils.isEmpty(name)){
+                    editTextName.setError("Name required");
+                    return;
+                }
+
+                updateArtist(artistId, name, genre);        //calling updateArtist to pass updated values
+                alertDialog.dismiss();          //dismisses the alert Dialog
+            }
+        });
+
+    }
+
+    /**
+     * function to update artist info in DB
+     * @param id
+     * @param name
+     * @param genre
+     * @return
+     */
+    private boolean updateArtist (String id, String name, String genre){
+
+        //getting to the particular DBReference for the artist that needs to be updated
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("artist").child(id);
+
+        Artist artist = new Artist(id, name, genre);
+
+        databaseReference.setValue(artist);     //setting the new values
+
+        Toast.makeText(this, "Artist Updated Successfully", Toast.LENGTH_SHORT).show();
+
+        return true;
+
     }
 
     /**Function to get the values entered */
